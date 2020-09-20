@@ -1,0 +1,24 @@
+<%= form_tag create_received_return_products_path , method: :get do %>
+  <div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">Received/Return Product</h4>
+    <button type="button" class="close" data-dismiss="modal">x</button>
+  </div>
+    <div class="modal-body">
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Received</label>
+        <div class="col-sm-10">
+          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value=<%= @product.serial_number%>>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Return</label>
+        <div class="col-sm-10">
+          <%= text_field_tag 'new_serial_number', params[:new_serial_number], placeholder: "Enter Number", class: 'form-control', required: true %>
+          <%= hidden_field_tag 'id', params[:id], value: @product.id %>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag 'Submit!', class: "btn btn-primary" %>
+    </div>
+<% end %>

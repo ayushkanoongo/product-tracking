@@ -1,0 +1,50 @@
+<div style="padding: 5%;">
+  <h2 style="text-align: center;margin-bottom: 3rem;"> New Rental Form</h2>
+  <div>
+    <% flash.each do |key, value| %>
+      <%if value.class == Array %>
+        <ul class="alert alert-<%= key %>">
+          <% value.each do |msg| %>
+            <li><%= msg %></li>
+          <%end%>
+        </ul>
+      <%end%>
+    <% end %> 
+  </div>
+  <%= form_for @product do |f| %>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Serial Number</label>
+        <%= f.text_field :serial_number, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Buyer Name</label>
+        <%= f.text_field :buyer_name, class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Mobile Number</label>
+        <%= f.text_field :mobile, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Type</label>
+        <%= f.select(:product_type, ['3 Cubic', '7 Cubic'], {include_blank: "Please select ..."}, { :class => 'form-control' }) %>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Email</label>
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Address</label>
+        <%= f.text_area :address, class: 'form-control' %>
+      </div>
+    </div>
+    <%= f.submit :Submit, class: 'btn btn-success' %>
+    <%= link_to "Cancel", products_path ,class: 'btn btn-success' %>
+  <% end %>
+</div>

@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  port: 5432
+  username: postgres
+  password: postgres
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: tracking_development
+
+# test:
+#   <<: *default
+#   database: bricsand_api_test
+
+# production:
+#   <<: *default
+#   database: bricsand_api_production
+#   username: bricsand_api
+#   password: <%= ENV['BRICSAND_API_DATABASE_PASSWORD'] %>
+  
