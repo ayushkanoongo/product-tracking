@@ -20,7 +20,11 @@
     </div>
   </div>
   <div class="mt-3">
-    <table class="table table-bordered table-hover">
+    <% if @products.present? %>
+      <table class="table table-bordered table-hover">
+    <%else%>
+      <table class="table table-hover">
+    <%end%>
       <thead class="thead-light">
         <tr>
           <th>Serial Number</th>
@@ -37,27 +41,43 @@
         </tr>
       </thead>
 
-      <% @products.each do |product| %>
+      <% if @products.present? %>
+        <% @products.each do |product| %>
+          <tbody>
+            <tr>
+              <td><%= product.serial_number %></td>
+              <td><%= product.buyer_name %></td>
+              <td><%= product.mobile %></td>
+              <td><%= product.product_type %></td>
+              <%if product.status == "Rented"%>
+                <td><span class="badge badge-warning"><%= product.status %></span></td>
+              <%else%>
+                <td><span class="badge badge-success"><%= product.status %></span></td>
+              <%end%>
+              <td><%= product.created_at.try(:localtime).strftime("%d-%m-%Y %I:%M %p")%></td>
+              <td><%= product&.receive_date.try(:localtime)&.strftime("%d-%m-%Y %I:%M %p") || ''%></td>
+              <td><%= link_to 'Edit', edit_product_path(product) %></td>
+              <td><%= link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+              <td><%= link_to 'Received', received_product_path(product), method: :get, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Received/Return', received_return_product_path(product),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %></td>
+            </tr>
+          </tbody>
+        <% end %>
+      <%else%>
         <tbody>
-          <tr>
-            <td><%= product.serial_number %></td>
-            <td><%= product.buyer_name %></td>
-            <td><%= product.mobile %></td>
-            <td><%= product.product_type %></td>
-            <%if product.status == "Rented"%>
-              <td><span class="badge badge-warning"><%= product.status %></span></td>
-            <%else%>
-              <td><span class="badge badge-success"><%= product.status %></span></td>
-            <%end%>
-            <td><%= product.created_at.try(:localtime).strftime("%d-%m-%Y %I:%M %p")%></td>
-            <td><%= product&.receive_date.try(:localtime)&.strftime("%d-%m-%Y %I:%M %p") || ''%></td>
-            <td><%= link_to 'Edit', edit_product_path(product) %></td>
-            <td><%= link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }%></td>
-            <td><%= link_to 'Received', received_product_path(product), method: :get, data: { confirm: 'Are you sure?' } %></td>
-            <td><%= link_to 'Received/Return', received_return_product_path(product),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %></td>
-          </tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="text-align: center;">No Result Found</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tbody>
-      <% end %>
+      <%end%>
     </table>
   </div>
   <%= paginate @products, theme: 'twitter-bootstrap-4' %>

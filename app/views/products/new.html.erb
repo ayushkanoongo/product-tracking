@@ -1,5 +1,5 @@
 <div style="padding: 5%;">
-  <h2 style="text-align: center;margin-bottom: 3rem;"> New Rental Form</h2>
+  <h1 style="text-align: center;margin-bottom: 3rem;"> New Rental Form</h1>
   <div>
     <% flash.each do |key, value| %>
       <%if value.class == Array %>
@@ -45,6 +45,6 @@
       </div>
     </div>
     <%= f.submit :Submit, class: 'btn btn-success' %>
-    <%= link_to "Cancel", products_path ,class: 'btn btn-success' %>
+    <%= link_to "Cancel", products_path ,class: 'btn btn-dark' %>
   <% end %>
 </div>
