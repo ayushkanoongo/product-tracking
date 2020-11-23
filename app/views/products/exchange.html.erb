@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div style="padding: 5%;">
+  <h1 style="text-align: center;margin-bottom: 3rem;"> Exchange Form</h1>
+  <div>
+    <% flash.each do |key, value| %>
+      <%if value.class == Array %>
+        <ul class="alert alert-<%= key %>">
+          <% value.each do |msg| %>
+            <li><%= msg %></li>
+          <%end%>
+        </ul>
+      <%else%>
+        <ul class="alert alert-<%= key %>">
+          <li><%= value %></li>
+        </ul>
+      <%end%>
+    <% end %> 
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Exchange Items Details</h3>
+    </div>
+    <div class="panel-body">
+      <%= form_for @new_product do |f| %>
+  
+        <table class='table'>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Serial Number</th>
+              <th>Type</th>
+              <th>Received</th>
+            </tr>
+          </thead>
+          <tbody class='fields'>
+            <%= f.simple_fields_for :items do |builder| %>
+              <%= render 'item', f: builder %>
+            <% end %>
+          </tbody>
+      </table>
+      <div class="form-actions">
+        <%= link_to_add_row('Add Item', f, :items, class: 'btn btn-primary') %>
+      </div>
+      <br>
+        <%= f.hidden_field :patient_name, value: @product.try(:patient_name) %>
+        <%= f.hidden_field :mobile, value: @product.try(:mobile) %>
+        <%= f.hidden_field :doctor_name, value: @product.try(:doctor_name) %>
+        <%= f.hidden_field :email, value: @product.try(:email) %>
+        <%= f.hidden_field :address, value: @product.try(:address) %>
+        <%= f.submit 'create exchange', class: 'btn btn-success' %>
+        <%= link_to "Cancel", products_path ,class: 'btn btn-dark' %>
+      <% end %>
+    </div>
+  </div>
+</div>

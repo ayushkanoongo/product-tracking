@@ -3,9 +3,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <div style="padding: 5%;">
-  <h1 style="text-align: center;margin-bottom: 3rem;"> New Form</h1>
+  <h1 style="text-align: center;margin-bottom: 3rem;"> RETURN ITEM FORM</h1>
   <div>
+    
     <% flash.each do |key, value| %>
+      
       <%if value.class == Array %>
         <ul class="alert alert-<%= key %>">
           <% value.each do |msg| %>
@@ -13,9 +15,9 @@
           <%end%>
         </ul>
       <%else%>
-        <ul class="alert alert-<%= key %>">
-          <li><%= value %></li>
-        </ul>
+      <ul class="alert alert-<%= key %>">
+        <li><%= value %></li>
+      </ul>
       <%end%>
     <% end %> 
   </div>
@@ -28,59 +30,58 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Patient Name</label>
-            <%= f.text_field :patient_name, class: 'form-control' %>
+            <%= f.text_field :patient_name, class: 'form-control', disabled: true %>
           </div>
           <div class="form-group col-md-6">
             <label for="inputEmail4">Mobile Number</label>
-            <%= f.text_field :mobile, class: 'form-control' %>
+            <%= f.text_field :mobile, class: 'form-control', disabled: true %>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Doctor Name</label>
-            <%= f.text_field :doctor_name, class: 'form-control' %>
+            <%= f.text_field :doctor_name, class: 'form-control', disabled: true %>
           </div>
           <div class="form-group col-md-6">
             <label for="inputEmail4">Email</label>
-            <%= f.text_field :email, class: 'form-control' %>
+            <%= f.text_field :email, class: 'form-control', disabled: true %>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-12">
             <label for="inputEmail4">Address</label>
-            <%= f.text_area :address, class: 'form-control' %>
+            <%= f.text_area :address, class: 'form-control', disabled: true %>
           </div>
         </div>
 
         <div class="panel panel-default">
-        <div class="panel-heading">
-        <h3 class="panel-title">Item Details</h3>
-        </div>
-        <div class="panel-body">
+            <div class="panel-heading">
+            <h3 class="panel-title">Item Details</h3>
+            </div>
+            <div class="panel-body">
 
-        <table class='table'>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Serial Number</th>
-              <th>Type</th>
-              <th>Received</th>
-            </tr>
-          </thead>
-          <tbody class='fields'>
-            <%= f.simple_fields_for :items do |builder| %>
-              <%= render 'item', f: builder %>
-            <% end %>
-          </tbody>
-      </table>
-      <div class="form-actions">
-        <%= link_to_add_row('Add Item', f, :items, class: 'btn btn-primary') %>
-      </div>
-      </div>
-      </div>
-     
+                <table class='table'>
+                    <thead>
+                        <tr>
+                        <th></th>
+                        <th>Serial Number</th>
+                        <th>Type</th>
+                        <th>Received</th>
+                        </tr>
+                    </thead>
+                    <tbody class='fields'>
+                        <%= f.simple_fields_for :items do |builder| %>
+                        <%= render 'item', f: builder %>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <%= f.hidden_field :receive_date, value: Time.now%>
         <%= f.submit :Submit, class: 'btn btn-success' %>
         <%= link_to "Cancel", products_path ,class: 'btn btn-dark' %>
+        <%= link_to 'Exchange', exchange_products_path(id: @product.id), class: 'btn btn-danger', target: :_blank %>
       <% end %>
     </div>
   </div>

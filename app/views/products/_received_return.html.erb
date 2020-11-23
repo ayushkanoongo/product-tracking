@@ -1,24 +1,60 @@
-<%= form_tag create_received_return_products_path , method: :get do %>
-  <div class="modal-header">
-    <h4 class="modal-title" id="myModalLabel">Received/Return Product</h4>
-    <button type="button" class="close" data-dismiss="modal">x</button>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div style="padding: 5%;">
+  <h1 style="text-align: center;margin-bottom: 3rem;"> New Form</h1>
+  <div>
+    <% flash.each do |key, value| %>
+      <%if value.class == Array %>
+        <ul class="alert alert-<%= key %>">
+          <% value.each do |msg| %>
+            <li><%= msg %></li>
+          <%end%>
+        </ul>
+      <%end%>
+    <% end %> 
   </div>
-    <div class="modal-body">
-      <div class="form-group row">
-        <label for="staticEmail" class="col-sm-2 col-form-label">Received</label>
-        <div class="col-sm-10">
-          <input type="text" readonly class="form-control-plaintext" id="staticEmail" value=<%= @product.serial_number%>>
+
+      <%= form_for new_product do |f| %>
+
+        <%= f.hidden_field :patient_name, class: 'form-control', disabled: true, value: product.try(:patient_name) %>
+        <%= f.hidden_field :mobile, class: 'form-control', disabled: true, value: product.try(:mobile) %>
+        <%= f.hidden_field :doctor_name, class: 'form-control', disabled: true, value: product.try(:doctor_name) %>
+        <%= f.hidden_field :email, class: 'form-control', disabled: true, value: product.try(:email) %>
+        <%= f.hidden_field :address, class: 'form-control', disabled: true, value: product.try(:address) %>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            <h3 class="panel-title">Item Details</h3>
+            </div>
+            <div class="panel-body">
+
+                <table class='table'>
+                    <thead>
+                        <tr>
+                        <th></th>
+                        <th>Serial Number</th>
+                        <th>Type</th>
+                        <th>Received</th>
+                        </tr>
+                    </thead>
+                    <tbody class='fields'>
+                        <%= f.simple_fields_for :items do |builder| %>
+                            <%= render 'item', f: builder %>
+                        <% end %>
+                    </tbody>
+                </table>
+                <div class="form-actions">
+                    <%= link_to_add_row('Add Item', f, :items, class: 'btn btn-primary') %>
+                </div>           
+            </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Return</label>
-        <div class="col-sm-10">
-          <%= text_field_tag 'new_serial_number', params[:new_serial_number], placeholder: "Enter Number", class: 'form-control', required: true %>
-          <%= hidden_field_tag 'id', params[:id], value: @product.id %>
-        </div>
-      </div>
+
+     
+        <%= f.submit :Submit, class: 'btn btn-success' %>
+        <%= link_to "Cancel", products_path ,class: 'btn btn-dark' %>
+      <% end %>
     </div>
-    <div class="modal-footer">
-      <%= submit_tag 'Submit!', class: "btn btn-primary" %>
-    </div>
-<% end %>
+  </div>
+</div>

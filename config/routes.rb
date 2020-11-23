@@ -5,10 +5,14 @@ Rails.application.routes.draw do
   resources :products do
   	member do
   		get 'received'
-  		get 'received_return'
+		get 'received_return'
+		get 'return_items'
+		
   	end
-  	collection do
-  		get 'create_received_return'
+	  collection do
+		get 'exchange'
+		get 'create_received_return'
+		delete 'destroy_item'
   	end
   end
 

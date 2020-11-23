@@ -25,6 +25,7 @@ gem 'pg_search'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 gem 'rails_admin', '~> 2.0'
+gem 'simple_form'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

@@ -1,2 +1,2 @@
-$("#modal-window").find(".modal-content").html("<%= j (render 'products/received_return', product: @product) %>");
+$("#modal-window").find(".modal-content").html("<%= j (render 'products/received_return', product: @product, new_product: Product.new) %>");
 $("#modal-window").modal();

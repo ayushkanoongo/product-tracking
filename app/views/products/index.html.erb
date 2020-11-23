@@ -36,8 +36,8 @@
           <th>Received Date</th>
           <th>Edit</th>
           <th>Delete</th>
-          <th>Return</th>
-          <th>Received/Return</th>
+          <th>Received</th>
+          <th>Exchange</th>
         </tr>
       </thead>
 
@@ -45,22 +45,22 @@
         <% @products.each do |product| %>
           <tbody>
             <tr>
-              <td><%= product.serial_number %></td>
-              <td><%= product.buyer_name %></td>
+              <td><%= product.items.map(&:serial_number).join("<br>").html_safe %></td>
+              <td><%= product.patient_name %></td>
               <td><%= product.mobile %></td>
-              <td><%= product.product_type %></td>
-              <%if product.status == "Rented"%>
-                <td><span class="badge badge-warning"><%= product.status %></span></td>
+              <td><%= product.items.map(&:item_type).join("<br>").html_safe %></td>
+              <%if product.items_status == "Rented"%>
+                <td><span class="badge badge-warning"><%= product.items_status %></span></td>
               <%else%>
-                <td><span class="badge badge-success"><%= product.status %></span></td>
+                <td><span class="badge badge-success"><%= product.items_status %></span></td>
               <%end%>
               <td><%= product.created_at.try(:localtime).strftime("%d-%m-%Y %I:%M %p")%></td>
               <td><%= product&.receive_date.try(:localtime)&.strftime("%d-%m-%Y %I:%M %p") || ''%></td>
               <td><%= link_to 'Edit', edit_product_path(product) %></td>
               <td><%= link_to 'Delete', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }%></td>
               <td><%= link_to 'Received', received_product_path(product), method: :get, data: { confirm: 'Are you sure?' } %></td>
-              <td><%= link_to 'Received/Return', received_return_product_path(product),  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %></td>
-            </tr>
+              <td><%= link_to 'Exchange', return_items_product_path(product) %></td>
+              </tr>
           </tbody>
         <% end %>
       <%else%>

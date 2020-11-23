@@ -1,0 +1,28 @@
+<% if controller.action_name == "return_items" %>
+  <tr>
+    <td>
+      <%= f.input_field :_destroy, as: :hidden %>
+      <%= link_to 'Delete', '#', class: 'remove_record return_removed_record'%>
+    </td>
+    <td><%= f.input :serial_number, label: false, disabled: true %></td>
+    <td><%= f.select :item_type, [ 'M.O.S (1.5 CuM)', 'M.O.B (7.0 CuM)' ], :prompt => 'Select One', class: 'select-item-type' %></td>
+    <td><%= f.select :status, [ 'Yes', 'No' ], :prompt => 'Select One' %></td>
+  </tr>
+<%else%>
+  <tr>
+    <td>
+      <%= f.input_field :_destroy, as: :hidden %>
+      <%= link_to 'Delete', '#', class: 'remove_record' %>
+    </td>
+    <td><%= f.input :serial_number, label: false %></td>
+    <td><%= f.select :item_type, [ 'M.O.S (1.5 CuM)', 'M.O.B (7.0 CuM)' ], :prompt => 'Select One' %></td>
+    <td><%= f.select :status, [ 'Yes', 'No' ], :prompt => 'Select One' %></td>
+  </tr>
+<%end%>
+
+<script>
+  $(document).ready(function(){
+    $('.return_removed_record').prop('disabled', true);
+  })
+
+</script>

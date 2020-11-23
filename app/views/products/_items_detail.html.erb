@@ -1,0 +1,64 @@
+
+<div style="margin-top: 2%;" class="col-md-24">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Items Description</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th><%= link_to '', 'javascript:void(0)', id: 'add_role_field', class: 'glyphicon glyphicon-plus-sign' %></th>
+                        <th>Serial Number</th>
+                        <th>Type</th>
+                        <% if controller.action_name%>
+                          <th>Received</th>
+                        <%end%>
+                    </tr>
+                </thead>
+                <tbody class="role_sub_field">
+                    <% @product.items.each_with_index do |item, i| %>
+                        <tr>
+                            <td>
+                                <a class="delete" href="/products/destroy_item?id=<%= @product.id %>&item_id=<%= item.id %>" data-method="delete" data-confirm="Are you sure you want to delete Role Field?">
+                                    <span class="glyphicon glyphicon-trash" style="margin-right: 10px"></span>
+                                </a>
+                            </td>
+                            <td>
+                              <%= text_field_tag :serial_number, item.try(:serial_number), class: 'item_serial_number form-control', name: "item[serial_number][#{i}]", id: "item_#{i}", required: true, disabled: true %>
+                              <%= hidden_field_tag "serial_number", item.try(:serial_number), name: "item[serial_number][#{i}]", id: "item_#{i}" %>
+                            </td>
+                            <td>
+                              <%= select_tag :item_type, options_for_select(["M.O.S (1.5 CuM)", "M.O.B (7.0 CuM)"], item.try(:item_type)), class: "form-control", prompt: "Please Select Type", name: "item[item_type][#{i}]", disabled: true%>
+                              <%= hidden_field_tag "item_type", item.try(:item_type), name: "item[item_type][#{i}]", id: "item_#{i}" %>
+                            </td>
+                            <% if controller.action_name == "return_items"%>
+                              <td>
+                                <%= select_tag :status, options_for_select(["Yes", "No"], item.try(:status)), class: "form-control", prompt: "Please Select Type", name: "item[status][#{i}]"%>
+                                <%= hidden_field_tag :status, item.try(:status), name: "item[status][#{i}]", id: "item_#{i}", class: "item_type"%>
+                              </td>
+                            <%end%>
+                        </tr>
+                    <% end %>
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+
+      $('#add_role_field').on('click', function(){
+        var getindex = $('.role_sub_field').children().find('input:first').length;
+        var html = '<tr><td><a class="delete"><span class="glyphicon glyphicon-trash remove-description-field" style="margin-right: 10px"></span></a></td><td><input type="text" required="required" name="item[serial_number]['+getindex+']"  id="item_serial_'+getindex+'" class="item form-control"></td><td><select type="text" name="item[item_type]['+getindex+']" id="item_description'+getindex+'"class="form-control"><option value="">Please Select Type</option><option value="M.O.S (1.5 CuM)">M.O.S (1.5 CuM)</option><option value="M.O.B (7.0 CuM)">M.O.B (7.0 CuM)</option></select></td></tr>';
+        $('.role_sub_field').append(html);
+      });
+      
+      $(document).on('click', '.remove-description-field', function () {
+        $(this).closest('tr').remove();
+      });
+    });
+
+</script>
