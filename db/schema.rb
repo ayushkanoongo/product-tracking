@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_043843) do
+ActiveRecord::Schema.define(version: 2020_11_24_154533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 2020_11_22_043843) do
     t.integer "status", default: 0
     t.datetime "receive_date"
     t.string "doctor_name"
+    t.string "other_mobile"
+    t.string "remarks"
   end
 
   add_foreign_key "items", "products"

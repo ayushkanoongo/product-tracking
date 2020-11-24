@@ -33,7 +33,7 @@
             <%= f.text_field :patient_name, class: 'form-control', disabled: true %>
           </div>
           <div class="form-group col-md-6">
-            <label for="inputEmail4">Mobile Number</label>
+            <label for="inputEmail4">Phone Number 1</label>
             <%= f.text_field :mobile, class: 'form-control', disabled: true %>
           </div>
         </div>
@@ -43,8 +43,14 @@
             <%= f.text_field :doctor_name, class: 'form-control', disabled: true %>
           </div>
           <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <%= f.text_field :email, class: 'form-control', disabled: true %>
+            <label for="inputEmail4">Phone Number 2</label>
+            <%= f.text_field :other_mobile, class: 'form-control', disabled: true %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="inputEmail4">Remarks</label>
+            <%= f.text_field :remarks, class: 'form-control', disabled: true %>
           </div>
         </div>
         <div class="form-row">

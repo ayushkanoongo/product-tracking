@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
 	def update
 		if @product.update(product_params)
 			flash[:success] = "Entry is successfully updated."
-			redirect_to return_items_product_path(@product.id)
+			redirect_to root_path
 		else
 			flash[:danger] = @product.errors.full_messages
 			redirect_to edit_product_path(@product.id)
@@ -67,7 +67,8 @@ class ProductsController < ApplicationController
 	end
 
 	def received
-		@product.update(status: 1, receive_date: Time.now)
+		@product.items.map {|item| item.update(status: "Yes")}
+		@product.update(receive_date: Time.now)
 		flash[:success] = "Product is successfully received."
 		redirect_to products_path
 	end
@@ -107,7 +108,7 @@ class ProductsController < ApplicationController
 	private
 
 	def product_params
-		params.require(:product).permit(:serial_number, :patient_name, :mobile, :product_type, :email, :address, :status, :doctor_name, :receive_date, items_attributes: Item.attribute_names.map(&:to_sym).push(:_destroy))
+		params.require(:product).permit(:serial_number, :patient_name, :mobile, :product_type, :email, :address, :status, :doctor_name, :receive_date, :other_mobile, :remarks,items_attributes: Item.attribute_names.map(&:to_sym).push(:_destroy))
 	end
 
 	def get_products

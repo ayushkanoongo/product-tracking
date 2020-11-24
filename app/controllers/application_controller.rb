@@ -1,3 +1,4 @@
 class ApplicationController < ActionController::Base
-	add_flash_types :success, :warning, :danger, :info	
+	http_basic_authenticate_with name: 'admin', password: 'password'
+	add_flash_types :success, :warning, :danger, :info
 end
