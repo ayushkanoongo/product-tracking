@@ -26,6 +26,8 @@ gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 gem 'rails_admin', '~> 2.0'
 gem 'simple_form'
+gem 'axlsx_rails'
+gem 'rails_admin', '~> 2.0'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

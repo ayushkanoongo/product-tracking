@@ -8,8 +8,6 @@ class Product < ApplicationRecord
 
 	pg_search_scope :search_by_name, against: :patient_name
 
-	enum status: [ :Rented, :Received ]
-
 	has_many :items, dependent: :destroy
 	accepts_nested_attributes_for :items, allow_destroy: true, reject_if: :all_blank
 

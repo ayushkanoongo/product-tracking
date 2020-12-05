@@ -85,8 +85,8 @@
         </div>
 
         <%= f.hidden_field :receive_date, value: Time.now%>
-        <%= f.submit :Submit, class: 'btn btn-success' %>
-        <%= link_to "Cancel", products_path ,class: 'btn btn-dark' %>
+        <%= f.submit 'Received', class: 'btn btn-success' %>
+        <%= link_to "Cancel", root_path ,class: 'btn btn-dark' %>
         <%= link_to 'Exchange', exchange_products_path(id: @product.id), class: 'btn btn-danger', target: :_blank %>
       <% end %>
     </div>

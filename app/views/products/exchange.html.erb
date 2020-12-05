@@ -48,10 +48,10 @@
         <%= f.hidden_field :patient_name, value: @product.try(:patient_name) %>
         <%= f.hidden_field :mobile, value: @product.try(:mobile) %>
         <%= f.hidden_field :doctor_name, value: @product.try(:doctor_name) %>
-        <%= f.hidden_field :email, value: @product.try(:email) %>
+        <%= f.hidden_field :other_mobile, value: @product.try(:other_mobile) %>
         <%= f.hidden_field :address, value: @product.try(:address) %>
         <%= f.submit 'create exchange', class: 'btn btn-success' %>
-        <%= link_to "Cancel", products_path ,class: 'btn btn-dark' %>
+        <%= link_to "Cancel", root_path ,class: 'btn btn-dark' %>
       <% end %>
     </div>
   </div>

@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 			@product = Product.new(product_params)
 			if @product.save
 				flash[:success] = "Product is successfully crated."
-				redirect_to products_path
+				redirect_to root_path
 			else
 				flash[:danger] = @product.errors.full_messages
 				redirect_to new_product_path
@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
 			@product = Product.new(product_params)
 			if @product.save
 				flash[:success] = "Product is successfully crated."
-				redirect_to products_path
+				redirect_to root_path
 			else
 				flash[:danger] = @product.errors.full_messages
 				redirect_to new_product_path
@@ -43,8 +43,14 @@ class ProductsController < ApplicationController
 
 	def update
 		if @product.update(product_params)
-			flash[:success] = "Entry is successfully updated."
-			redirect_to root_path
+			
+			if params[:commit] == "Received"
+				flash[:success] = "Items are successfully Received."
+				redirect_to return_items_product_path(@product.id)
+			else
+				flash[:success] = "Entry is successfully updated."
+				redirect_to root_path
+			end
 		else
 			flash[:danger] = @product.errors.full_messages
 			redirect_to edit_product_path(@product.id)
@@ -108,7 +114,7 @@ class ProductsController < ApplicationController
 	private
 
 	def product_params
-		params.require(:product).permit(:serial_number, :patient_name, :mobile, :product_type, :email, :address, :status, :doctor_name, :receive_date, :other_mobile, :remarks,items_attributes: Item.attribute_names.map(&:to_sym).push(:_destroy))
+		params.require(:product).permit(:patient_name, :mobile, :address, :doctor_name, :receive_date, :other_mobile, :remarks,items_attributes: Item.attribute_names.map(&:to_sym).push(:_destroy))
 	end
 
 	def get_products

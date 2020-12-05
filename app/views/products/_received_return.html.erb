@@ -21,8 +21,8 @@
         <%= f.hidden_field :patient_name, class: 'form-control', disabled: true, value: product.try(:patient_name) %>
         <%= f.hidden_field :mobile, class: 'form-control', disabled: true, value: product.try(:mobile) %>
         <%= f.hidden_field :doctor_name, class: 'form-control', disabled: true, value: product.try(:doctor_name) %>
-        <%= f.hidden_field :email, class: 'form-control', disabled: true, value: product.try(:email) %>
         <%= f.hidden_field :address, class: 'form-control', disabled: true, value: product.try(:address) %>
+        <%= f.hidden_field :address, class: 'form-control', disabled: true, value: product.try(:other_mobile) %>
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -53,7 +53,7 @@
 
      
         <%= f.submit :Submit, class: 'btn btn-success' %>
-        <%= link_to "Cancel", products_path ,class: 'btn btn-dark' %>
+        <%= link_to "Cancel", root_path ,class: 'btn btn-dark' %>
       <% end %>
     </div>
   </div>

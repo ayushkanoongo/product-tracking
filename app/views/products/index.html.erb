@@ -15,7 +15,8 @@
           <%= text_field_tag 'term', params[:term], placeholder: "Enter Serial Number", class: 'form-control' %>
         </div>
         <%= submit_tag 'Search!', class: "btn btn-info mb-2" %>
-        <%= link_to 'Clear', products_path, class: "btn btn-secondary mb-2 ml-2" %>
+        <%= link_to 'Clear', root_path, class: "btn btn-secondary mb-2 ml-2" %>
+        <%= link_to 'Export', "/admin/product", class: "btn btn-warning mb-2 ml-2" %>
       <% end %>
     </div>
   </div>
